@@ -17,7 +17,7 @@ def colab_to_pdf(notebook_path, output_dir='/content'):
     from plotly.offline import get_plotlyjs
     Javascript(get_plotlyjs())
     
-    result = subprocess.run(['jupyter', 'nbconvert', '--to', 'html', notebook_path, '--output', output_dir], capture_output=True, text=True, check=True) 
+    result = subprocess.run(['jupyter', 'nbconvert', '--to', 'html', notebook_path, '--output-dir', output_dir], capture_output=True, text=True, check=True) 
     
     notebook_filename = os.path.basename(PATH_TO_NOTEBOOK)  # Get filename from path
     html_filename = os.path.splitext(notebook_filename)[0] + '.html'

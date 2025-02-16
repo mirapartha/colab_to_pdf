@@ -1,6 +1,3 @@
-from google.colab import drive
-drive.mount('/content/drive')
-
 import base64
 import io
 import os

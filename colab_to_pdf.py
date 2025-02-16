@@ -1,7 +1,10 @@
 import base64
 import io
 import os
-os.system('pip install nbconvert --quiet')
+import subprocess
+
+# Install nbconvert
+subprocess.run(['pip', 'install', 'nbconvert', '--quiet'], check=True)
 
 from IPython.display import Javascript
 from plotly.offline import get_plotlyjs
@@ -9,11 +12,7 @@ Javascript(get_plotlyjs())
 
 PATH_TO_NOTEBOOK = os.environ.get('PATH_TO_NOTEBOOK')
 output_dir='/content'
-exit_code = os.system(f'jupyter nbconvert --output-dir={output_dir} --to html "{PATH_TO_NOTEBOOK}"')
-
-# Check for errors during HTML export
-if exit_code != 0:
-    raise RuntimeError(f"Error exporting to HTML (exit code {exit_code}). Check nbconvert installation and path.")
+result = subprocess.run(['jupyter', 'nbconvert', '--to', 'html', notebook_path, '--output', html_path], capture_output=True, text=True, check=True) 
 
 notebook_filename = os.path.basename(PATH_TO_NOTEBOOK)  # Get filename from path
 html_filename = os.path.splitext(notebook_filename)[0] + '.html'
@@ -31,9 +30,14 @@ title_tag.insert_after(BeautifulSoup(plotly_script, 'html.parser'))
 with open('/content/'+html_filename, 'w') as f:
     f.write(str(soup))
 
-os.system('pip install playwright --quiet')
-os.system('playwright install chromium')
-os.system('pip install nest-asyncio --quiet')
+# Install playwright
+subprocess.run(['pip', 'install', 'playwright', '--quiet'], check=True)
+
+# Install chromium for playwright
+subprocess.run(['playwright', 'install', 'chromium'], check=True)
+
+# Install nest-asyncio
+subprocess.run(['pip', 'install', 'nest-asyncio', '--quiet'], check=True)
 
 import nest_asyncio
 nest_asyncio.apply()

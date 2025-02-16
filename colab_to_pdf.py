@@ -18,12 +18,12 @@ print(f"PDF filename: {pdf_filename}")
 
 plotly_script = '<script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>'
 from bs4 import BeautifulSoup
-with open(html_filename, 'r') as f:
+with open('/content/'+html_filename, 'r') as f:
     soup = BeautifulSoup(f, 'html.parser')
 title_tag = soup.find('title')
 title_tag.insert_after(BeautifulSoup(plotly_script, 'html.parser'))
 
-with open(html_filename, 'w') as f:
+with open('/content/'+html_filename, 'w') as f:
     f.write(str(soup))
 
 os.system('pip install playwright --quiet')

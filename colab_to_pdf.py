@@ -2,6 +2,12 @@ import base64
 import io
 import os
 import subprocess
+from io import StringIO
+import sys
+
+# Redirect stdout to a string buffer
+old_stdout = sys.stdout
+sys.stdout = StringIO()
 
 from google.colab import drive
 drive.mount('/content/drive')
@@ -86,7 +92,9 @@ asyncio.get_event_loop().run_until_complete(main())
 
 from google.colab import files
 
+sys.stdout = old_stdout
+
 # Trigger the download
 files.download(pdf_filename)
 
-print("Done!")
+#print("Done!")

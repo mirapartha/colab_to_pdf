@@ -18,8 +18,6 @@ subprocess.run(['jupyter', 'nbconvert', '--to', 'html', notebook_path, '--output
 notebook_filename = os.path.basename(notebook_path)  # Get filename from path
 html_filename = os.path.splitext(notebook_filename)[0] + '.html'
 pdf_filename = os.path.splitext(notebook_filename)[0] + '.pdf'
-print(f"HTML filename: {html_filename}")
-print(f"PDF filename: {pdf_filename}")
 
 plotly_script = '<script charset="utf-8" src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>'
 from bs4 import BeautifulSoup
@@ -90,3 +88,5 @@ from google.colab import files
 
 # Trigger the download
 files.download(pdf_filename)
+
+print("Done!")

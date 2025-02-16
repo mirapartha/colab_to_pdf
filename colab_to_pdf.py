@@ -19,7 +19,7 @@ def colab_to_pdf(notebook_path, output_dir='/content'):
     
     result = subprocess.run(['jupyter', 'nbconvert', '--to', 'html', notebook_path, '--output-dir', output_dir], capture_output=True, text=True, check=True) 
     
-    notebook_filename = os.path.basename(PATH_TO_NOTEBOOK)  # Get filename from path
+    notebook_filename = os.path.basename(notebook_path)  # Get filename from path
     html_filename = os.path.splitext(notebook_filename)[0] + '.html'
     pdf_filename = os.path.splitext(notebook_filename)[0] + '.pdf'
     print(f"HTML filename: {html_filename}")
@@ -32,7 +32,7 @@ def colab_to_pdf(notebook_path, output_dir='/content'):
     title_tag = soup.find('title')
     title_tag.insert_after(BeautifulSoup(plotly_script, 'html.parser'))
     
-    with open('/content/'+html_filename, 'w') as f:
+    with open(output_dir+html_filename, 'w') as f:
         f.write(str(soup))
     
     # Install playwright
@@ -79,7 +79,7 @@ def colab_to_pdf(notebook_path, output_dir='/content'):
                 {
                     "width": f"{min(dimensions['width'], 200 * 72)}px",  # Add 'px' unit
                     "height": f"{min(dimensions['height'], 200 * 72)}px", # Add 'px' unit
-                    "path":'/content/'+pdf_filename
+                    "path":output_dir+pdf_filename
                 }
             )
             await page.pdf(**pdf_params)
@@ -93,7 +93,7 @@ def colab_to_pdf(notebook_path, output_dir='/content'):
     from google.colab import files
     
     # Trigger the download
-    files.download(pdf_filename)
+    files.download(output_dir+pdf_filename)
 
 if __name__ == '__main__':
   # Add argument parser

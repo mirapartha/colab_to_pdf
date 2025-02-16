@@ -8,7 +8,11 @@ Javascript(get_plotlyjs())
 
 PATH_TO_NOTEBOOK = os.environ.get('PATH_TO_NOTEBOOK')
 output_dir='/content'
-os.system(f'jupyter nbconvert --output-dir={output_dir} --to html "{PATH_TO_NOTEBOOK}"')
+exit_code = os.system(f'jupyter nbconvert --output-dir={output_dir} --to html "{PATH_TO_NOTEBOOK}"')
+
+# Check for errors during HTML export
+if exit_code != 0:
+    raise RuntimeError(f"Error exporting to HTML (exit code {exit_code}). Check nbconvert installation and path.")
 
 notebook_filename = os.path.basename(PATH_TO_NOTEBOOK)  # Get filename from path
 html_filename = os.path.splitext(notebook_filename)[0] + '.html'

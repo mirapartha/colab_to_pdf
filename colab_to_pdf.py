@@ -6,6 +6,7 @@ from IPython.display import Javascript
 from plotly.offline import get_plotlyjs
 Javascript(get_plotlyjs())
 
+PATH_TO_NOTEBOOK = os.environ.get('PATH_TO_NOTEBOOK')
 output_dir='/content'
 os.system(f'jupyter nbconvert --output-dir={output_dir} --to html "{PATH_TO_NOTEBOOK}"')
 

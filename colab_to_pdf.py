@@ -3,6 +3,9 @@ import io
 import os
 import subprocess
 
+from google.colab import drive
+drive.mount('/content/drive')
+
 # Install nbconvert
 subprocess.run(['pip', 'install', 'nbconvert', '--quiet'], check=True)
 

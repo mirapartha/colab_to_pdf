@@ -10,9 +10,9 @@ from IPython.display import Javascript
 from plotly.offline import get_plotlyjs
 Javascript(get_plotlyjs())
 
-PATH_TO_NOTEBOOK = os.environ.get('PATH_TO_NOTEBOOK')
+notebook_path = os.environ['PATH_TO_NOTEBOOK']
 output_dir='/content'
-result = subprocess.run(['jupyter', 'nbconvert', '--to', 'html', notebook_path, '--output', html_path], capture_output=True, text=True, check=True) 
+result = subprocess.run(['jupyter', 'nbconvert', '--to', 'html', notebook_path, '--output', output_dir], capture_output=True, text=True, check=True) 
 
 notebook_filename = os.path.basename(PATH_TO_NOTEBOOK)  # Get filename from path
 html_filename = os.path.splitext(notebook_filename)[0] + '.html'

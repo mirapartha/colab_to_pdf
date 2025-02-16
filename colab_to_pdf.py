@@ -4,7 +4,7 @@ import os
 import subprocess
 import argparse
 
-def colab_to_pdf(notebook_path, output_dir):
+def colab_to_pdf(notebook_path, output_dir='/content'):
     # Check if the input file exists
     if not os.path.exists(notebook_path):
         print(f"Error: Notebook file not found: {notebook_path}")
@@ -101,7 +101,7 @@ if __name__ == '__main__':
   # Add argument parser
   parser = argparse.ArgumentParser(description='Convert Colab notebook to PDF.')
   parser.add_argument('notebook_path', type=str, help='Path to the notebook file.')
-  parser.add_argument('output_dir', type=str, help='Output directory for the intermediate HTML file.')
+  parser.add_argument('output_dir', type=str, help='(Optional) Output directory for the intermediate HTML file.')
   args = parser.parse_args()
 
   # Call the function to convert to PDF

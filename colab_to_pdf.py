@@ -1,6 +1,7 @@
 import base64
 import io
 import os
+os.system('pip install nbconvert --quiet')
 
 from IPython.display import Javascript
 from plotly.offline import get_plotlyjs
